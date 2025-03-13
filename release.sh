@@ -13,8 +13,10 @@ version=$(date +%F-%H%M)
 
 [ "$(git branch --show-current)" = "master" ] || abort "Not on master branch"
 [ -z "$(git status --porcelain)" ] || abort "Uncommitted changes"
-git remote update
-[ -z "$(git status --untracked-files=no)" ] || abort "Need git pull/push"
+
+rev1=$(git rev-parse HEAD)
+rev2=$(git ls-remote origin master | cut -f1)
+[ $rev1 == $rev2 ] || abort "Need git pull/push"
 
 # Update CHANGELOG.md
 sed -i "/^## \[Unreleased\]/Ia \n## [$version]" CHANGELOG.md

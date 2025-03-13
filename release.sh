@@ -9,14 +9,17 @@ sed -n "/^## \[Unreleased\]/I,/^## /p" CHANGELOG.md |
     grep -qv '^ *$'  ||
     abort "CHANGELOG.md has no new entries"
 
-version=$(date +%F-%H%M)
-
+# Check git
 [ "$(git branch --show-current)" = "master" ] || abort "Not on master branch"
 [ -z "$(git status --porcelain)" ] || abort "Uncommitted changes"
-
 rev1=$(git rev-parse HEAD)
 rev2=$(git ls-remote origin master | cut -f1)
 [ $rev1 == $rev2 ] || abort "Need git pull/push"
 
-# Update CHANGELOG.md
-sed -i "/^## \[Unreleased\]/Ia \n## [$version]" CHANGELOG.md
+# Update version
+version=$(date +%F-%H%M)
+sed -i "/^## \[Unreleased\]/Ia \\\n## [$version]" CHANGELOG.md
+git add CHANGELOG.md
+git commit -m$version
+git tag $version
+git push --tags

@@ -21,5 +21,6 @@ version=$(date +%F-%H%M)
 sed -i "/^## \[Unreleased\]/Ia \\\n## [$version]" CHANGELOG.md
 git add CHANGELOG.md
 git commit -m$version
+git push
 git tag $version
 git push --tags

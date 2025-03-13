@@ -17,10 +17,15 @@ rev2=$(git ls-remote origin master | cut -f1)
 [ $rev1 == $rev2 ] || abort "Need git pull/push"
 
 # Update version
-version=$(date +%F-%H%M)
+version="v$(date +%F-%H%M)"
 sed -i "/^## \[Unreleased\]/Ia \\\n## [$version]" CHANGELOG.md
 git add CHANGELOG.md
 git commit -m$version
 git push
 git tag $version
 git push --tags
+
+# Create release on GitHub
+sed -n "/^## \[$version\]/,/^## /p" CHANGELOG.md |
+    grep -v '^## ' |
+    gh release create --notes-file - --title $version

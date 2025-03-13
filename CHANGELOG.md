@@ -6,9 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Use GitHub cli to create release
+
 ### Changed
 
-- Push not only tag but also changes to CHANGELOG.md
+- Push not only tag but also push changes to CHANGELOG.md
 
 ## [2025-03-13-1438]
 

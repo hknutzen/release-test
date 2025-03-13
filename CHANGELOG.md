@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Call "gh release create" with tag parameter
+
 ## [v2025-03-13-1728]
 
 ### Added

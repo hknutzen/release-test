@@ -28,4 +28,4 @@ git push --tags
 # Create release on GitHub
 sed -n "/^## \[$version\]/,/^## /p" CHANGELOG.md |
     grep -v '^## ' |
-    gh release create --notes-file - --title $version
+    gh release create --notes-file - --title $version $version

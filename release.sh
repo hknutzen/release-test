@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-abort () { echo "Error: $*" >&2; exit 1; }
+abort () { echo "Aborted: $*" >&2; exit 1; }
 
 # Check if new changes have been documented.
 sed -n "/^## \[Unreleased\]/I,/^## /p" CHANGELOG.md |

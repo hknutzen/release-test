@@ -1,0 +1,14 @@
+
+name: "release-test"
+arch: "amd64"
+platform: "linux"
+version: "${VERSION}"
+version_schema: none
+section: "default"
+maintainer: "Heinz Knutzen <heinz.knutzen@gmail.com>"
+description: Test release process
+homepage: "http://example.com"
+license: "GPL"
+contents:
+  - src: ./bin/*
+    dst: /usr/local/bin/

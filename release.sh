@@ -27,8 +27,9 @@ git push --tags
 
 # Build packages
 rm -rf dist
-nfpm package -p deb -t dist
-nfpm package -p rpm -t dist
+mkdir dist
+nfpm package -p deb -t dist/
+nfpm package -p rpm -t dist/
 
 # Create release on GitHub
 sed -n "/^## \[$VERSION\]/,/^## /p" CHANGELOG.md |

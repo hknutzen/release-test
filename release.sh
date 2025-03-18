@@ -25,11 +25,11 @@ git tag $VERSION
 git push --tags
 
 # Build packages
-rm -rf dist
-mkdir dist
-nfpm package -p deb -t dist/
-nfpm package -p rpm -t dist/
+rm -rf released
+mkdir released
+nfpm package -p deb -t released/
+nfpm package -p rpm -t released/
 
 # Create release on GitHub.
 echo "$DOC" |
-    gh release create $VERSION --notes-file - --title $VERSION dist/*
+    gh release create $VERSION --notes-file - --title $VERSION released/*

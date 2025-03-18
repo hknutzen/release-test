@@ -3,11 +3,10 @@
 set -e
 abort () { echo "Aborted: $*" >&2; exit 1; }
 
-# Check if new changes have been documented.
-sed -n "/^## \[Unreleased\]/I,/^## /p" CHANGELOG.md |
-    grep -v '^## ' |
-    grep -qv '^ *$'  ||
-    abort "CHANGELOG.md has no new entries"
+# Get recent changes.
+DOC=$(sed -n "/^## \[Unreleased\]/I,/^## /p" CHANGELOG.md | grep -v '^## ')
+# Abort if changes are only empty lines.
+echo "$DOC" | grep -qv '^ *$'  || abort "CHANGELOG.md has no new entries"
 
 # Check git
 [ "$(git branch --show-current)" = "master" ] || abort "Not on master branch"
@@ -31,7 +30,6 @@ mkdir dist
 nfpm package -p deb -t dist/
 nfpm package -p rpm -t dist/
 
-# Create release on GitHub
-sed -n "/^## \[$VERSION\]/,/^## /p" CHANGELOG.md |
-    grep -v '^## ' |
+# Create release on GitHub.
+echo "$DOC" |
     gh release create $VERSION --notes-file - --title $VERSION dist/*
